@@ -3,13 +3,16 @@ A file encryption/decryption CLI program written using [Zig](https://ziglang.org
 
 **This is in no shape or form a well-polished program, so use at your own risk.**
 
-## Usage:
+## Usage
 **Encrypt a file:**
 
     secure-files enc <input_file> <password>
-Encrypting a file will place the encrypted file in the same path as the input_file with an extension of .enc.
+Encrypting a file will place the encrypted file in the same path as the _input_file_ with an extension of _.enc_.
 
 **Decrypt a file:**
 
     secure-files dec <input_file> <password>
 
+## Binaries
+
+Compiled binaries can be found in the _zig-out/bin_ folder.
