@@ -18,17 +18,17 @@ pub fn main() !void {
     _ = args.next();
 
     const directive = args.next() orelse {
-        try utils.userMsg("Usage: sec_files <enc|dec> <input_file> <password>\n", .{});
+        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
     const path = args.next() orelse {
-        try utils.userMsg("Usage: sec_files <enc|dec> <input_file> <password>\n", .{});
+        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
     const password = args.next() orelse {
-        try utils.userMsg("Usage: sec_files <enc|dec> <input_file> <password>\n", .{});
+        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
