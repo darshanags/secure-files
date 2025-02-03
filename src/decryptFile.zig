@@ -1,6 +1,5 @@
 const std = @import("std");
 const kdf = @import("kdf.zig");
-const utils = @import("utils.zig");
 
 pub fn decryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPath: []const u8, password: []const u8) !void {
 
@@ -44,7 +43,7 @@ pub fn decryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPa
         nonce, // Nonce
         derivedKey, // Key
     ) catch |err| {
-        try utils.userMsg("The password that you entered is incorrect. Key Decryption failed: {}\n", .{err});
+        std.log.warn("The password that you entered is incorrect. Key Decryption failed: {}\n", .{err});
         return error.DecryptionFailed;
     };
 
@@ -102,12 +101,12 @@ pub fn decryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPa
             plaintextChunk[0..bytesRead], // Plaintext buffer
             ciphertextChunk[0..bytesRead], // Ciphertext
             tag, // Tag
-            &[0]u8{}, // Additional data (empty)
+            "", // Additional data (empty)
             nonce, // Nonce
             decryptedDataEncKey, // Key
         ) catch |err| {
             // Handle decryption error
-            try utils.userMsg("Decryption failed: {}\n", .{err});
+            std.log.err("Decryption failed: {}\n", .{err});
             return error.DecryptionFailed;
         };
 
@@ -117,5 +116,5 @@ pub fn decryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPa
         totalBytesRead += bytesRead;
     }
 
-    try utils.userMsg("File decrypted successfully! Total bytes processed: {}\n", .{totalBytesRead});
+    std.log.info("File decrypted successfully! Total bytes processed: {}\n", .{totalBytesRead});
 }

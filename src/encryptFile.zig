@@ -1,5 +1,4 @@
 const std = @import("std");
-const utils = @import("utils.zig");
 
 pub fn encryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPath: []const u8, derivedKey: [32]u8, salt: [16]u8) !void {
 
@@ -74,5 +73,5 @@ pub fn encryptFile(allocator: std.mem.Allocator, inputPath: []const u8, outputPa
         totalBytesRead += bytesRead;
     }
 
-    try utils.userMsg("File encrypted successfully! Total bytes processed: {}\n", .{totalBytesRead});
+    std.log.info("File encrypted successfully! Total bytes processed: {}\n", .{totalBytesRead});
 }

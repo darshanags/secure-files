@@ -3,7 +3,6 @@ const mem = std.mem;
 const kdf = @import("kdf.zig");
 const enc = @import("encryptFile.zig");
 const dec = @import("decryptFile.zig");
-const utils = @import("utils.zig");
 
 pub fn main() !void {
     const cwd = std.fs.cwd();
@@ -18,17 +17,17 @@ pub fn main() !void {
     _ = args.next();
 
     const directive = args.next() orelse {
-        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
+        std.log.info("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
     const path = args.next() orelse {
-        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
+        std.log.info("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
     const password = args.next() orelse {
-        try utils.userMsg("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
+        std.log.info("Usage: secure-files <enc|dec> <input_file> <password>\n", .{});
         return error.MissingArguments;
     };
 
@@ -42,7 +41,7 @@ pub fn main() !void {
             return err;
         }
         // Propagate other errors
-        try utils.userMsg("Error checking file: {}\n", .{err});
+        std.log.err("Error checking file: {}\n", .{err});
         return error.FileAccessError;
     };
     // If the file exists, close it and return true
@@ -51,12 +50,12 @@ pub fn main() !void {
     const stat = try cwd.statFile(path);
 
     if (stat.kind != .file) {
-        try utils.userMsg("The input path is not a file.\n", .{});
+        std.log.err("The input path is not a file.\n", .{});
         return error.InputNotFile;
     }
 
     const dir = std.fs.path.dirname(path) orelse {
-        try utils.userMsg("No dir in given path\n", .{});
+        std.log.err("No dir in given path\n", .{});
         return error.NoDirInPath;
     };
     const file_name = std.fs.path.basename(path);

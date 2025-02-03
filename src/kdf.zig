@@ -1,5 +1,4 @@
 const std = @import("std");
-const utils = @import("utils.zig");
 const argon2 = std.crypto.pwhash.argon2;
 
 pub fn getKey(allocator: std.mem.Allocator, password: []const u8, exsalt: ?[16]u8) !struct { salt: [16]u8, key: [32]u8 } {
